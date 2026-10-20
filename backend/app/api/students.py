@@ -14,6 +14,7 @@ router = APIRouter(prefix="/students", tags=["students"])
 @router.get("", response_model=dict)
 def list_students(
     q: str = "",
+    class_name: str = "",
     page: int = Query(1, ge=1),
     size: int = Query(20, ge=1, le=100),
     school: School = Depends(get_current_school),
@@ -27,6 +28,8 @@ def list_students(
             | (Student.last_name.ilike(like))
             | (Student.admission_number.ilike(like))
         )
+    if class_name:
+        query = query.filter(Student.class_name == class_name)
     total = query.count()
     items = (
         query.order_by(Student.created_at.desc())
