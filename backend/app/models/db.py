@@ -99,6 +99,8 @@ class Student(Base):
 
 
 class AuditLog(Base):
+    """Append-only. severity: info/warning/critical. source: user/system/ai_builder/ai_assistant."""
+
     __tablename__ = "audit_logs"
 
     id = Column(String(36), primary_key=True, default=_uuid)
@@ -106,6 +108,8 @@ class AuditLog(Base):
     user_id = Column(String(36), ForeignKey("users.id"), nullable=True)
     action = Column(String(100), nullable=False)
     detail = Column(Text, default="")
+    severity = Column(String(20), default="info", nullable=False)
+    source = Column(String(20), default="user", nullable=False)
     created_at = Column(DateTime, default=utcnow, nullable=False)
 
 
