@@ -15,3 +15,16 @@ from app.models.academic import (  # noqa: F401
     Subject,
     Teacher,
 )
+from app.models.finance import (  # noqa: F401
+    FeeCategory,
+    FinancialAdjustment,
+    Invoice,
+    InvoiceItem,
+    Payment,
+)
+from app.models.exams import (  # noqa: F401
+    Examination,
+    GradeBand,
+    GradingScheme,
+    Mark,
+)
