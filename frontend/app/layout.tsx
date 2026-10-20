@@ -19,10 +19,10 @@ const NAV: { section: string | null; items: NavItem[] }[] = [
   ]},
   { section: null, items: [
     { href: "/students", label: "Students" },
-    { label: "Teachers & Staff", soon: true },
+    { href: "/teachers", label: "Teachers & Staff" },
     { label: "Parents", soon: true },
-    { label: "Classes & Subjects", soon: true },
-    { label: "Attendance", soon: true },
+    { href: "/classes", label: "Classes & Subjects" },
+    { href: "/attendance", label: "Attendance" },
     { label: "Timetable", soon: true },
     { label: "Examinations", soon: true },
     { label: "Fees & Finance", soon: true },
@@ -71,7 +71,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     if (res.ok) me = await res.json();
   }
 
-  // ---- Auth pages: no sidebar ----
   if (!me) {
     return (
       <html lang="en">
@@ -91,7 +90,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     );
   }
 
-  // ---- App shell: sidebar + topbar ----
   const initials = (me.full_name || me.email || "?").slice(0, 1).toUpperCase();
   return (
     <html lang="en">
