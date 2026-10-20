@@ -11,3 +11,20 @@ from app.schemas.schemas import (  # noqa: F401
     StudentResponse,
     StudentUpdate,
 )
+from app.schemas.academic import (  # noqa: F401
+    AcademicYearCreate,
+    AcademicYearResponse,
+    AttendanceBulkCreate,
+    AttendanceCorrection,
+    AttendanceMark,
+    AttendanceRecordResponse,
+    AttendanceSummaryResponse,
+    SchoolClassCreate,
+    SchoolClassResponse,
+    SchoolClassUpdate,
+    SubjectCreate,
+    SubjectResponse,
+    TeacherCreate,
+    TeacherResponse,
+    TeacherUpdate,
+)
