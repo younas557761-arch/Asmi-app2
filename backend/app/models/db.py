@@ -6,6 +6,7 @@ from sqlalchemy import (
     Column,
     DateTime,
     ForeignKey,
+    Integer,
     String,
     Text,
     UniqueConstraint,
@@ -42,6 +43,7 @@ class User(Base):
     password_hash = Column(String(512), nullable=False)
     full_name = Column(String(200), default="")
     is_active = Column(Boolean, default=True, nullable=False)
+    email_verified = Column(Boolean, default=False, nullable=False)
     created_at = Column(DateTime, default=utcnow, nullable=False)
 
 
@@ -104,4 +106,16 @@ class AuditLog(Base):
     user_id = Column(String(36), ForeignKey("users.id"), nullable=True)
     action = Column(String(100), nullable=False)
     detail = Column(Text, default="")
+    created_at = Column(DateTime, default=utcnow, nullable=False)
+
+
+class EmailVerificationCode(Base):
+    __tablename__ = "email_verification_codes"
+
+    id = Column(String(36), primary_key=True, default=_uuid)
+    user_id = Column(String(36), ForeignKey("users.id"), nullable=False, index=True)
+    code_hash = Column(String(128), nullable=False)
+    expires_at = Column(DateTime, nullable=False)
+    attempts = Column(Integer, default=0, nullable=False)
+    used = Column(Boolean, default=False, nullable=False)
     created_at = Column(DateTime, default=utcnow, nullable=False)
