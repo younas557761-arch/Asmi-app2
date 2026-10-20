@@ -28,3 +28,28 @@ from app.schemas.academic import (  # noqa: F401
     TeacherResponse,
     TeacherUpdate,
 )
+from app.schemas.finance import (  # noqa: F401
+    AdjustmentCreate,
+    AdjustmentResponse,
+    FeeCategoryCreate,
+    FeeCategoryResponse,
+    InvoiceCreate,
+    InvoiceItemIn,
+    InvoiceItemResponse,
+    InvoiceResponse,
+    PaymentCreate,
+    PaymentResponse,
+    StudentBalance,
+)
+from app.schemas.exams import (  # noqa: F401
+    ExaminationCreate,
+    ExaminationResponse,
+    GradeBandIn,
+    GradeBandResponse,
+    GradingSchemeCreate,
+    GradingSchemeResponse,
+    MarkBulkCreate,
+    MarkEntry,
+    MarkResponse,
+    StudentResult,
+)
