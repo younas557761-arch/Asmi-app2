@@ -24,15 +24,15 @@ const NAV: { section: string | null; items: NavItem[] }[] = [
     { href: "/classes", label: "Classes & Subjects" },
     { href: "/attendance", label: "Attendance" },
     { label: "Timetable", soon: true },
-    { label: "Examinations", soon: true },
-    { label: "Fees & Finance", soon: true },
-    { label: "Reports", soon: true },
-    { label: "Communication", soon: true },
+    { href: "/exams", label: "Examinations" },
+    { href: "/fees", label: "Fees & Finance" },
+    { href: "/reports", label: "Reports" },
+    { href: "/communication", label: "Communication" },
     { label: "AI Assistant", soon: true },
   ]},
   { section: "Administration", items: [
     { label: "Settings", soon: true },
-    { label: "Security & Audit", soon: true },
+    { href: "/security", label: "Security & Audit" },
   ]},
 ];
 
