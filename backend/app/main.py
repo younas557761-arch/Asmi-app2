@@ -1,7 +1,22 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import attendance, auth, classes, dashboard, exams, fees, schools, students, teachers, verify
+from app.api import (
+    announcements,
+    attendance,
+    audit,
+    auth,
+    classes,
+    dashboard,
+    exams,
+    fees,
+    people,
+    reports,
+    schools,
+    students,
+    teachers,
+    verify,
+)
 from app.core.config import settings
 from app.core.database import Base, engine
 
@@ -34,3 +49,7 @@ app.include_router(attendance.router, prefix="/api/v1")
 app.include_router(dashboard.router, prefix="/api/v1")
 app.include_router(fees.router, prefix="/api/v1")
 app.include_router(exams.router, prefix="/api/v1")
+app.include_router(people.router, prefix="/api/v1")
+app.include_router(announcements.router, prefix="/api/v1")
+app.include_router(audit.router, prefix="/api/v1")
+app.include_router(reports.router, prefix="/api/v1")
