@@ -28,3 +28,8 @@ from app.models.exams import (  # noqa: F401
     GradingScheme,
     Mark,
 )
+from app.models.people import (  # noqa: F401
+    Announcement,
+    Guardian,
+    StudentGuardian,
+)
