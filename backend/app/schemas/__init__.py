@@ -53,3 +53,10 @@ from app.schemas.exams import (  # noqa: F401
     MarkResponse,
     StudentResult,
 )
+from app.schemas.people import (  # noqa: F401
+    AnnouncementCreate,
+    AnnouncementResponse,
+    GuardianCreate,
+    GuardianLink,
+    GuardianResponse,
+)
