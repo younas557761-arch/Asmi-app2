@@ -3,13 +3,16 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import (
     announcements,
+    assistant,
     attendance,
     audit,
     auth,
+    builder,
     classes,
     dashboard,
     exams,
     fees,
+    onboarding,
     people,
     reports,
     schools,
@@ -23,7 +26,7 @@ from app.core.database import Base, engine
 # create_all is used for the dev schema. Alembic migrations land in a later phase.
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="ASMI API", version="0.3.0", docs_url="/docs", openapi_url="/openapi.json")
+app = FastAPI(title="ASMI API", version="0.4.0", docs_url="/docs", openapi_url="/openapi.json")
 
 app.add_middleware(
     CORSMiddleware,
@@ -36,7 +39,7 @@ app.add_middleware(
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "service": "asmi-api", "version": "0.3.0"}
+    return {"status": "ok", "service": "asmi-api", "version": "0.4.0"}
 
 
 app.include_router(auth.router, prefix="/api/v1")
@@ -53,3 +56,6 @@ app.include_router(people.router, prefix="/api/v1")
 app.include_router(announcements.router, prefix="/api/v1")
 app.include_router(audit.router, prefix="/api/v1")
 app.include_router(reports.router, prefix="/api/v1")
+app.include_router(builder.router, prefix="/api/v1")
+app.include_router(assistant.router, prefix="/api/v1")
+app.include_router(onboarding.router, prefix="/api/v1")
