@@ -15,7 +15,7 @@ type NavItem = { href?: string; label: string; soon?: boolean };
 const NAV: { section: string | null; items: NavItem[] }[] = [
   { section: null, items: [
     { href: "/dashboard", label: "Home" },
-    { href: "/builder", label: "School Builder", soon: true },
+    { href: "/builder", label: "School Builder" },
   ]},
   { section: null, items: [
     { href: "/students", label: "Students" },
@@ -28,10 +28,10 @@ const NAV: { section: string | null; items: NavItem[] }[] = [
     { href: "/fees", label: "Fees & Finance" },
     { href: "/reports", label: "Reports" },
     { href: "/communication", label: "Communication" },
-    { label: "AI Assistant", soon: true },
+    { href: "/assistant", label: "AI Assistant" },
   ]},
   { section: "Administration", items: [
-    { label: "Settings", soon: true },
+    { href: "/settings", label: "Settings" },
     { href: "/security", label: "Security & Audit" },
   ]},
 ];
@@ -126,7 +126,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                 <span className="chip">🌐 {me.school.language}</span>
               </div>
               <div className="topbar-group">
-                <span className="chip" title="AI Assistant arrives in Phase 4">✨ AI Assistant <span className="soon-badge">soon</span></span>
+                <Link href="/assistant" className="chip" title="Open the AI Assistant">✨ AI Assistant</Link>
                 <ThemeToggle />
               </div>
             </header>
