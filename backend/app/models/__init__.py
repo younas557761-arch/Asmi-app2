@@ -33,3 +33,7 @@ from app.models.people import (  # noqa: F401
     Guardian,
     StudentGuardian,
 )
+from app.models.ai import (  # noqa: F401
+    AIActionApproval,
+    AIActionPlan,
+)
