@@ -60,3 +60,15 @@ from app.schemas.people import (  # noqa: F401
     GuardianLink,
     GuardianResponse,
 )
+from app.schemas.ai import (  # noqa: F401
+    ApproveRequest,
+    ApproveResponse,
+    AssistantAskRequest,
+    AssistantAskResponse,
+    ModulesResponse,
+    OnboardingReview,
+    PlanActionDetail,
+    PlanRequest,
+    PlanResponse,
+    WorkspaceResponse,
+)
