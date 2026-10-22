@@ -23,14 +23,9 @@ from app.api import (
 )
 from app.core.config import settings
 from app.core.database import Base, engine
+import app.models  # noqa: F401  (register all tables in metadata)
 
-# Serverless safety: never crash at import if the DB pooler is slow/unreachable.
-try:
-    Base.metadata.create_all(bind=engine)
-except Exception as _e:  # noqa: BLE001
-    print(f"[asmi] DB not reachable at import: {_e}")
-
-app = FastAPI(title="ASMI API", version="0.4.3", docs_url="/docs", openapi_url="/openapi.json")
+app = FastAPI(title="ASMI API", version="0.4.4", docs_url="/docs", openapi_url="/openapi.json")
 
 app.add_middleware(
     CORSMiddleware,
@@ -43,18 +38,19 @@ app.add_middleware(
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "service": "asmi-api", "version": "0.4.3"}
+    return {"status": "ok", "service": "asmi-api", "version": "0.4.4"}
 
 
 @app.get("/db-test")
 def db_test():
-    """Diagnostic: touches the database and returns the REAL error, if any."""
+    """Creates all tables (if missing) and verifies a real table."""
     import traceback
 
     try:
+        Base.metadata.create_all(bind=engine)
         with engine.connect() as conn:
-            conn.execute(text("SELECT 1"))
-        return {"db": "CONNECTED ✅"}
+            conn.execute(text("SELECT count(*) FROM users"))
+        return {"db": "CONNECTED + TABLES READY ✅ — ab register karein"}
     except Exception:
         return {"db": "FAILED ❌", "error": traceback.format_exc()[-800:]}
 
