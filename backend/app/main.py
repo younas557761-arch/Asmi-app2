@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import text
 
 from app.api import (
     announcements,
@@ -24,13 +25,12 @@ from app.core.config import settings
 from app.core.database import Base, engine
 
 # Serverless safety: never crash at import if the DB pooler is slow/unreachable.
-# Tables are created when the database answers; health stays live regardless.
 try:
     Base.metadata.create_all(bind=engine)
 except Exception as _e:  # noqa: BLE001
-    print(f"[asmi] DB not reachable at import (will connect per-request): {_e}")
+    print(f"[asmi] DB not reachable at import: {_e}")
 
-app = FastAPI(title="ASMI API", version="0.4.1", docs_url="/docs", openapi_url="/openapi.json")
+app = FastAPI(title="ASMI API", version="0.4.3", docs_url="/docs", openapi_url="/openapi.json")
 
 app.add_middleware(
     CORSMiddleware,
@@ -43,7 +43,20 @@ app.add_middleware(
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "service": "asmi-api", "version": "0.4.1"}
+    return {"status": "ok", "service": "asmi-api", "version": "0.4.3"}
+
+
+@app.get("/db-test")
+def db_test():
+    """Diagnostic: touches the database and returns the REAL error, if any."""
+    import traceback
+
+    try:
+        with engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+        return {"db": "CONNECTED ✅"}
+    except Exception:
+        return {"db": "FAILED ❌", "error": traceback.format_exc()[-800:]}
 
 
 app.include_router(auth.router, prefix="/api/v1")
