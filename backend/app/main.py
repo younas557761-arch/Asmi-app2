@@ -23,8 +23,12 @@ from app.api import (
 from app.core.config import settings
 from app.core.database import Base, engine
 
-# create_all is used for the dev schema. Alembic migrations land in a later phase.
-Base.metadata.create_all(bind=engine)
+# Serverless safety: never crash at import if the DB pooler is slow/unreachable.
+# Tables are created when the database answers; health stays live regardless.
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as _e:  # noqa: BLE001
+    print(f"[asmi] DB not reachable at import (will connect per-request): {_e}")
 
 app = FastAPI(title="ASMI API", version="0.4.0", docs_url="/docs", openapi_url="/openapi.json")
 
