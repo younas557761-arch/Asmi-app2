@@ -30,7 +30,7 @@ try:
 except Exception as _e:  # noqa: BLE001
     print(f"[asmi] DB not reachable at import (will connect per-request): {_e}")
 
-app = FastAPI(title="ASMI API", version="0.4.0", docs_url="/docs", openapi_url="/openapi.json")
+app = FastAPI(title="ASMI API", version="0.4.1", docs_url="/docs", openapi_url="/openapi.json")
 
 app.add_middleware(
     CORSMiddleware,
@@ -43,7 +43,7 @@ app.add_middleware(
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "service": "asmi-api", "version": "0.4.0"}
+    return {"status": "ok", "service": "asmi-api", "version": "0.4.1"}
 
 
 app.include_router(auth.router, prefix="/api/v1")
